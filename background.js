@@ -16,9 +16,17 @@ class Background {
   draw() {
     // .drawImage(image, posX, posY, w, h);
     // .move
+
+    this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    this.ctx.drawImage(this.image, this.posX + this.width, this.posY, this.width, this.height )
+    this.move();
   }
 
   move() {
     // Change this.posX (Move horizontally)
+    this.posX -= this.velX;
+    if(this.posX <= -this.width){
+      this.posX = 0;
+    }
   }
 }

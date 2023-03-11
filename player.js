@@ -44,8 +44,12 @@ class Player {
     )
 
     // 2. Animate player
+    this.animate(framesCounter);
     // 3. Move player
+    this.move();
     // 4. Draw bullets
+    this.bullets.forEach(function(bullet){
+      bullet.draw()})
     // 5. Clear bullets
   }
 
@@ -75,10 +79,13 @@ class Player {
       switch (e.keyCode) {
         case this.keys.TOP:
           // Check if its on the floor 👀
-          // .jump()
+          if(this.posY >= this.posY0){
+            this.jump();
+          }
           break;
         case this.keys.SPACE:
           // .shoot
+          this.shoot();
           break;
       }
     });
@@ -91,9 +98,14 @@ class Player {
 
   shoot() {
     // Add new Bullet to the bullets array
+    this.bullets.push(new Bullets(this.ctx, this.posX, this.posY, this.posY0, this.width, this.height))
+  
   }
 
   clearBullets() {
     // Clear bullets (.filter 👀)
+    this.bullets = this.bullets.filter((bullet)=>{
+      return bullet.posX <= this.gameWidth;
+    })
   }
 }
